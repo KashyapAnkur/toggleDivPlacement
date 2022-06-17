@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .grey {
+            width: 100px;
+            height: 100px;
+            background-color: grey;
+            position: absolute;
+            margin-left: 5px;
+        }
+        .tomato {
+            width: 100px;
+            height: 100px;
+            background-color: tomato;
+            position: absolute;
+            margin-left: 10px;
+        }
+        .purple {
+            width: 100px;
+            height: 100px;
+            background-color: purple;
+            position: absolute;
+            margin-left: 15px;
+        }
+        .black {
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            position: absolute;
+            margin-left: 20px;
+        }
+        .green {
+            border-radius: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            position: absolute;
+            margin-left: 25px;
+        }
+        button{
+            margin-top: 200px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <div class="grey" onclick="selectedElement('grey')"></div>
+        <div class="tomato" onclick="selectedElement('tomato')"></div>
+        <div class="purple" onclick="selectedElement('purple')"></div>
+        <div class="black" onclick="selectedElement('black')"></div>
+        <div class="green" onclick="selectedElement('green')"></div>
+    </div>
+    <br />
+    <button onclick="pushDown()">Push down</button>
+    <button onclick="bringUp()">Bring up</button>
+</body>
+</html>
+<script>
+    let main = document.querySelector(".main");
+    let selected = "";
+    let elements = ['grey','tomato','purple','black','green'];
+    function selectedElement(selectedElement) {
+        selected = selectedElement;
+    }
+
+    function bringUp() {
+        if(selected) {
+            if(selected !== elements[elements.length - 1]) {
+                let temp = [...elements];
+                for(let i = elements.length - 1 ; i > 0; i--) {
+                    let t = temp[i];
+                    temp[i] = temp[i - 1];
+                    temp[i - 1] = t;
+                }
+                elements = [...temp];
+                elements.forEach((i) => {
+                    main.innerHTML = main.innerHTML + `<div class='${i}' onclick="selectedElement('${i}')"></div>`;
+                });
+            }
+            check();
+        } else {
+            alert("Please select any element first.");
+        }
+    }
+
+    function pushDown() {
+        if(selected) {
+            if(selected !== elements[0]) {
+                let temp = [...elements];
+                for(let i = 0 ; i < elements.length - 1; i++) {
+                    let t = temp[i];
+                    temp[i] = temp[i + 1];
+                    temp[i + 1] = t;
+                }
+                elements = [...temp];
+                elements.forEach((i) => {
+                    main.innerHTML = main.innerHTML + `<div class='${i}' onclick="selectedElement('${i}')"></div>`;
+                });
+            }
+            check();
+        } else {
+            alert("Please select any element first.");
+        }
+    }
+
+    function check() {
+        console.log(elements);
+    }
+
+</script>
